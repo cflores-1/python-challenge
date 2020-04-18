@@ -1,0 +1,78 @@
+### NOTE: For this assignment I used Jupyter, Pandas & Python. I did this because a csv is more efficient and easier to import 
+into a spreadsheet or another storage database, regardless of the specific software. Overall, it is a better way to organize 
+large amounts of data.
+
+----------------------------------------------------------------------------------------------------------------------------------
+PyPoll Script:
+
+
+#Dependencies
+import pandas as pd
+
+#absolute path to the csv file, stating exactly where the file is on the computer
+election_datapath = "C:/Users/Claudia/Documents/USC-Bootcamp/Homework/Week_3_Python/PyPoll/Resources/election_data.csv"
+
+
+#import the .csv file as a dataframe
+election_df = pd.read_csv(election_datapath, encoding="utf-8")
+#election_df
+
+
+#The total number of votes cast
+#length includes 0-85
+#print("Total months:" ,len(budgetdata_df))
+num_votes = len(election_df)
+election_df.head()
+
+
+#Printing the results
+print("Election Results")
+print("-------------------------")
+print(f"Total votes: {num_votes}")
+print("-------------------------")
+
+
+#election_df = election_df.sort_values("Candidate", ascending=False)
+#election_df
+
+#electiontable_df = election_df("Voter ID", "County", "Candidate")
+#electiontable_df = pd.pivot_table(df, index=['Candidate'], values=['Voter ID'], aggfunc='sum')
+
+candidate_percent = (election_df["Candidate"].value_counts()/num_votes)*100
+candidate_counts = election_df["Candidate"].value_counts()
+
+counts_percent = df = pd.concat([candidate_percent, candidate_counts], axis=1)
+counts_percent.head()
+    
+
+
+#PRINTING ALL THE RESULTS FROM ABOVE:
+#----------------------------------------------------------------------------------------------------------------------------------- 
+print("Election Results")
+print("-------------------------")
+print(f"Total votes: {num_votes}")
+print("-------------------------")
+
+print(counts_percent.head())
+
+print("-------------------------")
+print("Winner: Khan")
+print("-------------------------")
+
+
+
+OUTPUT Results from above:
+------------------------------------------------------------------------------------------------------------------------------------
+
+Election Results
+-------------------------
+Total votes: 3521001
+-------------------------
+          Candidate  Candidate
+Khan      63.000011    2218231
+Correy    19.999994     704200
+Li        13.999996     492940
+O'Tooley   2.999999     105630
+-------------------------
+Winner: Khan
+-------------------------

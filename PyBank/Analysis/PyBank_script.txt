@@ -1,0 +1,104 @@
+### NOTE: For this assignment I used Jupyter, Pandas & Python. I did this because a csv is more efficient and an 
+easier to import into a spreadsheet or another storage database, regardless of the specific software. Overall, 
+it is a better way to organize large amounts of data.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+# Dependencies
+import pandas as pd
+
+#absolute path to the csv file, stating exactly where the file is on the computer
+budget_datapath = "C:/Users/Claudia/Documents/USC-Bootcamp/python-challenge/PyBank/Resources/budget_data.csv"
+
+#relative file path, it is always relative to where the notebook is at
+#budget_datapath = "budget_data.csv"
+
+#import the .csv file as a dataframe
+budgetdata_df = pd.read_csv(budget_datapath, encoding="utf-8")
+budgetdata_df
+
+#Another way: to perform this
+#length includes 0-85
+#print("Total months:" ,len(budgetdata_df))
+
+num_months = len(budgetdata_df)
+budgetdata_df.head()
+
+#import the .csv file as a dataframe
+budgetdata_df = pd.read_csv(budget_datapath, encoding="utf-8")
+budgetdata_df
+
+#Another way: to perform this
+#length includes 0-85
+#print("Total months:" ,len(budgetdata_df))
+
+num_months = len(budgetdata_df)
+
+print("Financial Analysis")
+print("-------------------------")
+
+#total number of months included in the dataset
+#using f-string to tell it to evaluate python code within the string
+#the f tells the python interpreter to look for code when it reaches {}
+print(f"Total months: {num_months}")
+
+#The net total amount of "Profit/Losses" over the entire period
+
+profit_loss_sum = budgetdata_df.sum(axis=0)
+
+#putting the string together with the total and $ symbol --- formatted
+print(f"Total: ${profit_loss_sum['Profit/Losses']}")
+
+#print(profit_loss_sum['Profit/Losses']) --- not formatted
+
+#creating new column
+profit_loss_new = budgetdata_df["Profit/Losses"].shift()
+
+#label to the new column
+budgetdata_df["Change_in"]=profit_loss_new
+budgetdata_df
+
+#creating new column for the difference
+profit_loss_diff = budgetdata_df["Profit/Losses"] - budgetdata_df["Change_in"]
+budgetdata_df["Diff"]=profit_loss_diff
+budgetdata_df
+
+#Calculating the avg of the Diff column
+profit_loss_avg = budgetdata_df["Diff"].mean()
+
+#formatting the response
+print(f"Average Change: ${profit_loss_avg}")
+
+#Calculating the max of the Diff column
+profit_loss_max = budgetdata_df["Diff"].max()
+
+#formatting the response
+print(f"Greatest Increase in Profits: Feb-2012 (${profit_loss_max})")
+
+#Calculating the min of the Diff column
+profit_loss_min = budgetdata_df["Diff"].min()
+
+#formatting the response
+print(f"Greatest Decrease in Profits: Sep-2013 (${profit_loss_min})")
+
+---------------------------------------------------------------------------------------------
+#PRINTING ALL THE ABOVE:
+
+print("Financial Analysis")
+print("-------------------------")
+print(f"Total months: {num_months}")
+print(f"Total: ${profit_loss_sum['Profit/Losses']}")
+print(f"Average Change: ${profit_loss_avg}")
+print(f"Greatest Increase in Profits: Feb-2012 (${profit_loss_max})")
+print(f"Greatest Decrease in Profits: Sep-2013 (${profit_loss_min})")
+
+
+Output from above:
+---------------------------------------------------------------------------------------------
+Financial Analysis
+-------------------------
+Total months: 86
+Total: $38382578
+Average Change: $1926159.0
+Greatest Increase in Profits: Feb-2012 ($1926159.0)
+Greatest Decrease in Profits: Sep-2013 ($-2196167.0)
+
